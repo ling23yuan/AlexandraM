@@ -13,6 +13,16 @@ function along!(robot, side, n) #Просто ходит по кол-ву шаг
     end
 end
 
+function along!(stop_condition::Function, robot, side)
+    n=0
+    while !stop_condition(robot)
+        move!(robot, side)
+        n += 1
+    end
+    return n
+end
+    
+
 function solve!(robot,side) #смотрит с какой стороны граница
     if (isborder(robot,left(side)))
         shuttle!(()->!isborder(robot,left(side)),robot,side)
